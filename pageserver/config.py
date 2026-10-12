@@ -123,12 +123,15 @@ def configuration(proxied=False):
     cli_vars = vars(cli)  # Access the namespace as a dict
     log.debug("CLI variables: {}".format(cli_vars))
     config_file_paths = ["app.ini", "credentials.ini"]
+    
     if cli_vars.get("config"):
         config_file_paths.append(cli_vars.get("config"))
     log.debug("Will read config files from '{}'".format(config_file_paths))
+
     config_for_project = cli_vars.get("project", None)
     ini = config_file_args(config_file_paths, config_for_project)
     log.debug("Config file args: {}".format(ini))
+    
     # Fold into cli namespace with precedence for command line arguments
     for var_lower in ini:
         var_upper = var_lower.upper()
